@@ -13,12 +13,17 @@ class App extends React.Component {
                 to power our user experience most effectively.
             </p>
 
-            <Carousel>
+            <Carousel itemsPerPage={3}>
                 <div className="item">one</div>
                 <div className="item">two</div>
                 <div className="item">three</div>
                 <div className="item">four</div>
                 <div className="item">five</div>
+                <div className="item">six</div>
+                <div className="item">seven</div>
+                <div className="item">eight</div>
+                <div className="item">nine</div>
+                <div className="item">ten</div>
             </Carousel>
         </div>
     );
