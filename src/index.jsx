@@ -55,7 +55,7 @@ class Carousel extends React.Component {
 
     const itemWrapperStyles = {
       display: 'inline-block',
-      width: '33.33333%',
+      width: `${100 / itemsPerPage}%`,
       padding: '0 5px',
       boxSizing: 'border-box',
     };
