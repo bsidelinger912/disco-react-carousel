@@ -4,6 +4,17 @@ class Carousel extends React.Component {
   static propTypes: {
     children: PropTypes.array.isRequired,
     itemsPerPage: PropTypes.number.isRequired,
+    className: PropTypes.string,
+    peek: PropTypes.boolean,
+    arrowLeftElem: PropTypes.node,
+    arrowRightElem: PropTypes.node,
+  }
+
+  static defaultProps = {
+    className: '',
+    peek: false,
+    arrowLeftElem: '&lt;',
+    arrowRightElem: '&gt',
   }
 
   constructor() {
@@ -14,6 +25,12 @@ class Carousel extends React.Component {
     this.pageRight = this.pageRight.bind(this);
     this.pageLeft = this.pageLeft.bind(this);
   }
+
+  /* componentWillReceiveProps(nextProps) {
+    if (this.props.children.length !== nextProps.children.lenght) {
+      this.checkPageBlank();
+    }
+  }*/
 
   pageRight() {
     const page = this.state.page + 1;
@@ -29,27 +46,13 @@ class Carousel extends React.Component {
 
   render() {
     const { page } = this.state;
-    const { children, itemsPerPage } = this.props;
+    const { children, itemsPerPage, peek, className, arrowLeftElem, arrowRightElem } = this.props;
 
     const maxPages = Math.ceil(children.length / itemsPerPage);
 
-    const outerMostStyles = {
-      width: 'calc(100% + 20px)',
-      position: 'relative',
-      left: '-10px',
-    };
-
-    const outerStyles = {
-      overflowX: 'hidden',
-      width: '100%',
-      position: 'relative',
-      padding: '0 40px',
-      boxSizing: 'border-box',
-    };
-
-    const wrapperStyles = {
+    const maskStyles = { overflowX: 'hidden', width: '100%' };
+    const contentStyles = {
       whiteSpace: 'nowrap',
-      transition: 'transform ease .5s',
       transform: (page > 0) ? `translate3d(-${100 * page}%, 0px, 0px)` : '',
     };
 
@@ -60,9 +63,10 @@ class Carousel extends React.Component {
       boxSizing: 'border-box',
     };
 
+    // @TODO: figure out what's here and what's in css
     const arrowRightStyles = {
       position: 'absolute',
-      right: '0',
+      right: '0px',
       height: 'calc(100% - 4px)',
       width: '35px',
       display: 'flex',
@@ -76,8 +80,8 @@ class Carousel extends React.Component {
 
     const arrowLeftStyles = {
       position: 'absolute',
-      left: '0',
-      height: 'calc(100% - 4px)',
+      left: '0px',
+      height: 'calc(100% - 3px)',
       width: '35px',
       display: 'flex',
       alignItems: 'center',
@@ -90,22 +94,22 @@ class Carousel extends React.Component {
 
     const leftPager = (page > 0) ? (
         <div style={arrowLeftStyles} onClick={this.pageLeft}>
-            &lt;
+            {arrowLeftElem}
         </div>
     ) : null;
 
     const rightPager = (page < maxPages - 1) ? (
         <div style={arrowRightStyles} onClick={this.pageRight}>
-            &gt;
+            {arrowRightElem}
         </div>
     ) : null;
 
     return (
-        <div style={outerMostStyles}>
-            <div style={outerStyles}>
+        <div className={`carousel ${className} ${peek ? 'peek' : ''}`} style={{ position: 'relative' }}>
+            <div className="carouselMask" style={maskStyles}>
                 {leftPager}
-                <div style={wrapperStyles}>
-                    {this.props.children.map((child, i) => <div key={i} style={itemWrapperStyles}>{child}</div>)}
+                <div style={contentStyles} className="carouselContent">
+                    {this.props.children.map((child, i) => <div key={i} className="carouselItem" style={itemWrapperStyles}>{child}</div>)}
                 </div>
                 {rightPager}
             </div>

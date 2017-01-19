@@ -14,7 +14,24 @@ h1 {
   background: #fff;
 }
 
-.item {
+.carousel {
+  /* width: calc(100% + 10px);
+  left: -5px;*/
+}
+
+.carouselMask {
+  box-sizing: border-box;
+  padding: 0 45px;
+}
+
+.carouselContent {
+  transition: transform ease .5s;
+  width: calc(100% + 10px);
+  left: -5px;
+  position: relative;
+}
+
+.square .item {
   background: #6699ff;
   display: flex;
   align-items: center;
@@ -22,8 +39,19 @@ h1 {
   width: 100%;
 }
 
-.item::before {
-    display: block;
-    content: "";
-    padding-top: 100%;
+.square .item::before {
+  display: block;
+  content: "";
+  padding-top: 100%;
+}
+
+.textBeneath .item .image {
+  width: 100%;
+  background: #6699ff;
+}
+
+.textBeneath .item .image::before {
+  display: block;
+  content: "";
+  padding-top: 66.67%;
 }

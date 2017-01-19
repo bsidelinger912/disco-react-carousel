@@ -75,16 +75,14 @@
 
         "consistent-return": [ 0 ],
 
-        //this allows left handed conditionals, though apparently it is not considered a best practice these days, eslint.org/docs/rules/yoda
-        "yoda": [ 0 ],
-
         // warns when trying to use Object.assign()
         "prefer-object-spread/prefer-object-spread": 2,
 
         "import/no-extraneous-dependencies": [ 0 ],
-        "import/prefer-default-export": [ 0 ],
 
-        "react/forbid-prop-types": [ 0 ]
+        "react/forbid-prop-types": [ 0 ],
+
+        "jsx-a11y/no-static-element-interactions": [0],
     },
     "globals" : {
         "__CLIENT__": true
